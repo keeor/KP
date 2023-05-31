@@ -17,7 +17,8 @@ d. забезпечує можливість перегляду детально
 
 import tkinter as tk
 from tkinter import *
-from db import geting_info as gi
+from main_data import function as gi
+
 
 
 stores_list = gi.stores_list()
