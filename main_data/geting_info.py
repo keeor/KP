@@ -36,7 +36,6 @@ work_time = []
 products_l = []
 
 # Создание класов в елементах списка и заполнение их инфой
-
 for name in data:
     store_list.append(name)
 for i in range(len(store_list)):
@@ -55,9 +54,12 @@ for i in range(len(store_list)):
             for j in range(len(data)):
                 product = [data['Name'][j], data['Cost'][j]]
                 store_list[i].prod_list_data(product)
+
+
 def list_inf():
     return store_list
-################################################
+
+
 def products_list():
     products_l = []
     excel_data = pd.read_excel('main_data/products_list.xlsx')
@@ -68,6 +70,9 @@ def products_list():
     return products_l
 
 
+cart_list = list_inf()
+
+
 class ShoppingCart:
     def __init__(self):
         self.products = []
@@ -76,16 +81,24 @@ class ShoppingCart:
         self.products.append(product)
 
     def calculate_total_cost(self):
-        total_cost = sum(self.products)
-        print(self.products)
-        return total_cost
+        sum_list = []
+        sub_list = []
+        prod = []
+        for i in range(len(cart_list)):
+            s = 0
+            p = []
+            for item in cart_list[i].product_list:
+                if item[0] in self.products:
+                    s += item[1]
+                    if item[0] not in prod:
+                        p.append(item[0])
+            sum_list.append(s)
+            prod.append(p)
+            for it in range(len(sum_list)):
+                if [cart_list[it].name] not in sub_list:
+                    sub_list.append([cart_list[it].name])
+        for j in range(len(sum_list)):
+            sub_list[j].append(sum_list[j])
+            sub_list[j].append(prod[j])
 
-
-
-def compare_products(product):
-    # Функція порівняння продукту з іншим магазином
-    pass
-
-checkbox_vars = []
-
-
+        return(sub_list)
